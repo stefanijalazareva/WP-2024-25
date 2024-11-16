@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xml="https://w3schools.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Songs Homepage - Welcome to My Music Store</title>
+    <style>
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Music Store</h1>
+</header>
+<main>
+    <!--DOPOLNITELNO BARANJE -->
+    <form th:action="@{/searchSongs}" th:method="POST">
+        <input type="text" name="search" placeholder="Search your song here">
+        <input type="submit" value="Submit"/>
+        <div th:each="song : ${songList}">
+            <input type="radio" name="songRadio" th:id="${song.getTrackId()}" th:value="${song.trackId}">
+            <label th:for="${song.getTrackId()}"
+                   th:text="${song.getTitle()}"></label>
+            <br/>
+        </div>
+    </form>
+    <!-- ----- -->
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h2>Choose a song:</h2>
+    <form th:action="@{/artist}" th:method="POST">
+        <div th:each="song : ${songs}">
+            <input type="radio" name="songRadio" th:id="${song.getTrackId()}" th:value="${song.trackId}">
+            <label th:for="${song.getTrackId()}"
+                   th:text="'Title: ' + ${song.getTitle()}  +
+                   ', Genre: ' + ${song.getGenre()} +
+                   ', Release Year: ' + ${song.getReleaseYear()}"></label><br/>
+        </div>
+        <br/>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>
