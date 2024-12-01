@@ -2,7 +2,6 @@ package mk.finki.ukim.mk.lab.model;
 
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ public class Song {
     private int releaseYear;
     private List<Artist> performers;
     private Album album;
-    private int views = 1;
 
     public Song(String title, String genre, int releaseYear, List<Artist> performers, Album album) {
         Random random = new Random();
@@ -43,7 +41,4 @@ public class Song {
         return performer;
     }
 
-    public int getViews() {
-        return views++;
-    }
 }

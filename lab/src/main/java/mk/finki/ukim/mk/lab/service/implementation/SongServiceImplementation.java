@@ -72,8 +72,4 @@ public class SongServiceImplementation implements SongService {
     public boolean deleteSong(Long trackId) {
         return songRepository.deleteSong(trackId);
     }
-
-    public int getViews(Long trackId) {
-        return songRepository.getViews(trackId);
-    }
 }
