@@ -28,7 +28,9 @@
     <ul>
         <li th:each="artist : ${song.getPerformers()}" th:text="${artist.getFirstName()}+' '+${artist.getLastName()}"></li>
     </ul>
+    <br/>
+    <br/>
+    <h6>Views: <span th:text="${song.getViews()}"></span></h6>
 </section>
-
 </body>
 </html>

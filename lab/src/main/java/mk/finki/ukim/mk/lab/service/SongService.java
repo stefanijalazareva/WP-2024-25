@@ -14,4 +14,5 @@ public interface SongService {
     List<Song> findTitleBySubstring(String string);
     Song editSong(Long trackId, String title, String genre, int releaseYear, Long albumId);
     boolean deleteSong(Long trackId);
+    int getViews(Long trackId);
 }
