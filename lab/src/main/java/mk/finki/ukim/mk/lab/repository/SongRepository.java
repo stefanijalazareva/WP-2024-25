@@ -67,4 +67,9 @@ public class SongRepository {
         song.setAlbum(album);
         return song;
     }
+
+    public int getViews(Long trackId) {
+        Optional<Song> song = findByTrackId(trackId);
+        return song.get().getViews();
+    }
 }

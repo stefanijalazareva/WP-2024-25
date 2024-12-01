@@ -37,11 +37,17 @@ public class DataHolder {
         albums.add(new Album("Album5", "Soft Rock", "1983"));
 
         songs = new ArrayList<>();
-        songs.add(new Song("You give a love bad name", "Rock", 1986, new ArrayList<>(List.of(artists.get(0))), albums.get(1)));
-        songs.add(new Song( "Californication", "Alternative/Idile", 1999, new ArrayList<>(List.of(artists.get(1))), albums.get(3)));
-        songs.add(new Song( "Good Riddance", "Alternative rock", 1997, new ArrayList<>(List.of(artists.get(2))), albums.get(2)));
-        songs.add(new Song("Boulevard of broken dreams", "Hard Rock", 2004, new ArrayList<>(List.of(artists.get(2))), albums.get(1)));
-        songs.add(new Song( "Every breath you take", "Soft Rock", 1983, new ArrayList<>(List.of(artists.get(4))), albums.get(4)));
-        songs.add(new Song( "Here comes the sun", "Pop Rock", 1969, new ArrayList<>(List.of(artists.get(3))), albums.get(0)));
+        songs.add(new Song("You give a love bad name", "Rock", 1986,
+                new ArrayList<>(List.of(artists.get(0))), albums.get(1)));
+        songs.add(new Song("Californication", "Alternative/Idile", 1999,
+                new ArrayList<>(List.of(artists.get(1))), albums.get(3)));
+        songs.add(new Song("Good Riddance", "Alternative rock", 1997,
+                new ArrayList<>(List.of(artists.get(2))), albums.get(2)));
+        songs.add(new Song("Boulevard of broken dreams", "Hard Rock", 2004,
+                new ArrayList<>(List.of(artists.get(2))), albums.get(1)));
+        songs.add(new Song("Every breath you take", "Soft Rock", 1983,
+                new ArrayList<>(List.of(artists.get(4))), albums.get(4)));
+        songs.add(new Song("Here comes the sun", "Pop Rock", 1969,
+                new ArrayList<>(List.of(artists.get(3))), albums.get(0)));
     }
 }
