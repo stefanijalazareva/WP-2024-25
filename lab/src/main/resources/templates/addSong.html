@@ -39,13 +39,14 @@
             <div class="input-container">
                 <label>Album:</label>
                 <select name="albumId">
-                    <option th:each="album : ${albums}" th:text="${album.getName()}"
-                            th:value="${album.getId()}"></option>
+                    <option th:each="album : ${albums}" th:text="${album.getName()}" th:value="${album.getId()}"></option>
                 </select>
             </div>
         </div>
         <input type="submit" th:value="(${addSong} ? 'Add song' : 'Edit song')">
+
     </form>
+
 </div>
 </body>
 </html>

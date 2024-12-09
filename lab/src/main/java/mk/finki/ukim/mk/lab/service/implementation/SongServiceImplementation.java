@@ -4,25 +4,22 @@ import mk.finki.ukim.mk.lab.model.Album;
 import mk.finki.ukim.mk.lab.model.Artist;
 import mk.finki.ukim.mk.lab.model.Song;
 import mk.finki.ukim.mk.lab.model.exceptions.SongNotFoundException;
-import mk.finki.ukim.mk.lab.repository.AlbumRepository;
-import mk.finki.ukim.mk.lab.repository.ArtistRepository;
-import mk.finki.ukim.mk.lab.repository.SongRepository;
+import mk.finki.ukim.mk.lab.repository.jpa.SongJPARepository;
 import mk.finki.ukim.mk.lab.service.AlbumService;
 import mk.finki.ukim.mk.lab.service.ArtistService;
 import mk.finki.ukim.mk.lab.service.SongService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class SongServiceImplementation implements SongService {
-    private final SongRepository songRepository;
+    private final SongJPARepository songRepository;
     private final ArtistService artistService;
     private final AlbumService albumService;
 
-    public SongServiceImplementation(SongRepository songRepository, ArtistService artistService, AlbumService albumService) {
+    public SongServiceImplementation(SongJPARepository songRepository, ArtistService artistService, AlbumService albumService) {
         this.songRepository = songRepository;
         this.artistService = artistService;
         this.albumService = albumService;
@@ -35,13 +32,19 @@ public class SongServiceImplementation implements SongService {
 
     @Override
     public Artist addArtistToSong(Long artistId, Long trackId) {
+        Song song = songRepository.findById(trackId).orElse(null);
+        if(song == null) {
+            throw new SongNotFoundException(trackId);
+        }
         Artist artist = artistService.findById(artistId);
-        return songRepository.addArtistToSong(artist, trackId);
+        song.addArtist(artist);
+        songRepository.save(song);
+        return artist;
     }
 
     @Override
     public Song findByTrackId(Long trackId) {
-        Song song = songRepository.findByTrackId(trackId).orElse(null);
+        Song song = songRepository.findById(trackId).orElse(null);
         if(song == null) {
             throw new SongNotFoundException(trackId);
         }
@@ -54,28 +57,38 @@ public class SongServiceImplementation implements SongService {
             return null;
         }
         Album album = albumService.findByAlbumId(albumId);
-        return songRepository.addSong(title, genre, releaseYear, album);
-    }
-
-    @Override
-    public List<Song> findTitleBySubstring(String string) {
-        return songRepository.findBySubstring(string).stream().collect(Collectors.toList());
+        Song song = new Song(title, genre, releaseYear, album);
+        return songRepository.save(song);
     }
 
     @Override
     public Song editSong(Long trackId, String title, String genre, int releaseYear, Long albumId) {
         Album album = albumService.findByAlbumId(albumId);
-        return songRepository.editSong(trackId, title, genre, releaseYear, album);
+        Song song =songRepository.findById(trackId).orElse(null);
+        if (song == null) {
+            throw new SongNotFoundException(trackId);
+        }
+        song.setTitle(title);
+        song.setGenre(genre);
+        song.setReleaseYear(releaseYear);
+        song.setAlbum(album);
+        return songRepository.save(song);
     }
 
     @Override
     public boolean deleteSong(Long trackId) {
-        return songRepository.deleteSong(trackId);
+        songRepository.deleteById(trackId);
+        return true;
     }
 
     @Override
-    public int getViews(Long trackId) {
-        return songRepository.getViews(trackId);
+    public List<Song> findAllByAlbum_Id(Long albumId) {
+        return songRepository.findAllByAlbum_Id(albumId);
     }
+
+//    @Override
+//    public int getViews(Long trackId) {
+//        return songRepository.getViews(trackId);
+//    }
 
 }

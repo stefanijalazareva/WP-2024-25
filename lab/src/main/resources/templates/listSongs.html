@@ -22,16 +22,16 @@
 </header>
 <main>
     <!--DOPOLNITELNO BARANJE -->
-<!--    <form th:action="@{/searchSongs}" th:method="POST">-->
-<!--        <input type="text" name="search" placeholder="Search your song here">-->
-<!--        <input type="submit" value="Submit"/>-->
-<!--        <div th:each="song : ${songList}">-->
-<!--            <input type="radio" name="songRadio" th:id="${song.getTrackId()}" th:value="${song.trackId}">-->
-<!--            <label th:for="${song.getTrackId()}"-->
-<!--                   th:text="${song.getTitle()}"></label>-->
-<!--            <br/>-->
-<!--        </div>-->
-<!--    </form>-->
+    <!--    <form th:action="@{/searchSongs}" th:method="POST">-->
+    <!--        <input type="text" name="search" placeholder="Search your song here">-->
+    <!--        <input type="submit" value="Submit"/>-->
+    <!--        <div th:each="song : ${songList}">-->
+    <!--            <input type="radio" name="songRadio" th:id="${song.getTrackId()}" th:value="${song.trackId}">-->
+    <!--            <label th:for="${song.getTrackId()}"-->
+    <!--                   th:text="${song.getTitle()}"></label>-->
+    <!--            <br/>-->
+    <!--        </div>-->
+    <!--    </form>-->
     <!-- ----- -->
     <h1>All songs</h1>
     <div th:text="(${hasError} ? ${error} : '')"></div>
@@ -63,7 +63,9 @@
                         <li th:text="${artist.getFirstName()}+' '+${artist.getLastName()}"></li>
                     </ul>
                 </td>
-                <td th:text="${song.getAlbum().getName()}"></td>
+                <td>
+                    <a th:href="@{'/albums/details/'+${song.getAlbum().getId()}}" th:text="${song.getAlbum().getName()}"></a>
+                </td>
                 <td>
                     <div class="button-container">
                         <form action="/artists/list-artists" method="GET">

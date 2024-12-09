@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.repository;
+package mk.finki.ukim.mk.lab.repository.implementation;
 
 import mk.finki.ukim.mk.lab.bootstrap.DataHolder;
 import mk.finki.ukim.mk.lab.model.Album;
@@ -29,7 +29,7 @@ public class SongRepository {
             throw new SongNotFoundException(trackId);
         }
         if (!song.getPerformers().contains(artist)) {
-            return song.addPerformer(artist);
+            return song.addArtist(artist);
         }
         return artist;
     }
